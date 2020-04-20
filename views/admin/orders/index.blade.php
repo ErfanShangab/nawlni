@@ -10,7 +10,17 @@
         <a href="{{ route(ADMIN . '.orders.create') }}" class="btn btn-info">
        إضافة  جديد 
         </a>
+      
+        <a href="{{ route('/orders/delivered') }}" class="btn btn-success">
+            الطلبات  الموصلة       
+         </a>
+      
+        <a href="{{ route('/orders/inprogress') }}" class="btn btn-warning">
+            الطلبات تحت التوصيل     
+         </a>
     </div>
+     
+     
 
     {{-- {{ trans('app.add_button') }} --}}
     <div class="bgc-white bd bdrs-3 p-20 mB-20">

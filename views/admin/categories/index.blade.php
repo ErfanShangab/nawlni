@@ -1,19 +1,15 @@
 @extends('admin.default')
 
 @section('page-header')
-    إدارة الكباتن 
+    إدارة التصنيفات 
 @endsection
 {{-- <small>{{ trans('app.manage') }}</small> --}}
 @section('content')
 
     <div class="mB-20">
-        <a href="{{ route(ADMIN . '.drivers.create') }}" class="btn btn-info">
+        <a href="{{ route(ADMIN . '.categories.create') }}" class="btn btn-info">
        إضافة  جديد 
         </a>
-
-        <a href="{{ route('/drivers/active') }}" class="btn btn-success">
-            الكباتن النشطين 
-         </a>
     </div>
 
     {{-- {{ trans('app.add_button') }} --}}
@@ -22,9 +18,6 @@
             <thead>
                 <tr>
                     <th>الإسم</th>
-                    <th>البريد الإلكتروني</th>
-                    <th> رقم الهاتف   </th>
-                    <th>    النشاط   </th>
                     <th>التحكم</th>
                 </tr>
             </thead>
@@ -32,9 +25,6 @@
             <tfoot>
                 <tr>
                     <th>الإسم</th>
-                    <th>البريد الإلكتروني</th>
-                    <th> رقم الهاتف   </th>
-                    <th>    النشاط   </th>
                     <th>التحكم</th>
                 </tr>
             </tfoot>
@@ -42,25 +32,16 @@
             <tbody>
                 @foreach ($items as $item)
                     <tr>
-                        <td><a href="{{ route(ADMIN . '.drivers.show', $item->id) }}">{{ $item->User->name  }}</a></td>
-                        <td>{{ $item->User->email }}</td>
-                        <td>{{ $item->User->phone }}</td>
-                        <td>
-                            @if($item->is_available ==1)
-                              نشط   
-                           @elseif($item->is_available ==0)
-                            غير نشط
-                           @endif
-                           </td>
+                        <td><a href="{{ route(ADMIN . '.categories.show', $item->id) }}">{{ $item->name }}</a></td>
 
                         <td>
                             <ul class="list-inline">
                                 <li class="list-inline-item">
-                                    <a href="{{ route(ADMIN . '.drivers.edit', $item->id) }}" title="{{ trans('app.edit_title') }}" class="btn btn-primary btn-sm"><span class="ti-pencil"></span></a></li>
+                                    <a href="{{ route(ADMIN . '.categories.edit', $item->id) }}" title="{{ trans('app.edit_title') }}" class="btn btn-primary btn-sm"><span class="ti-pencil"></span></a></li>
                                 <li class="list-inline-item">
                                     {!! Form::open([
                                         'class'=>'delete',
-                                        'url'  => route(ADMIN . '.drivers.destroy', $item->id), 
+                                        'url'  => route(ADMIN . '.categories.destroy', $item->id), 
                                         'method' => 'DELETE',
                                         ]) 
                                     !!}

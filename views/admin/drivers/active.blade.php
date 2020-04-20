@@ -1,7 +1,8 @@
 @extends('admin.default')
 
+
 @section('page-header')
-    إدارة الكباتن 
+      الكباتن النشطين 
 @endsection
 {{-- <small>{{ trans('app.manage') }}</small> --}}
 @section('content')
@@ -15,7 +16,6 @@
             الكباتن النشطين 
          </a>
     </div>
-
     {{-- {{ trans('app.add_button') }} --}}
     <div class="bgc-white bd bdrs-3 p-20 mB-20">
         <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -24,7 +24,6 @@
                     <th>الإسم</th>
                     <th>البريد الإلكتروني</th>
                     <th> رقم الهاتف   </th>
-                    <th>    النشاط   </th>
                     <th>التحكم</th>
                 </tr>
             </thead>
@@ -34,7 +33,6 @@
                     <th>الإسم</th>
                     <th>البريد الإلكتروني</th>
                     <th> رقم الهاتف   </th>
-                    <th>    النشاط   </th>
                     <th>التحكم</th>
                 </tr>
             </tfoot>
@@ -45,13 +43,6 @@
                         <td><a href="{{ route(ADMIN . '.drivers.show', $item->id) }}">{{ $item->User->name  }}</a></td>
                         <td>{{ $item->User->email }}</td>
                         <td>{{ $item->User->phone }}</td>
-                        <td>
-                            @if($item->is_available ==1)
-                              نشط   
-                           @elseif($item->is_available ==0)
-                            غير نشط
-                           @endif
-                           </td>
 
                         <td>
                             <ul class="list-inline">

@@ -1,19 +1,15 @@
 @extends('admin.default')
 
 @section('page-header')
-    إدارة الكباتن 
+    إدارة المنتجات 
 @endsection
 {{-- <small>{{ trans('app.manage') }}</small> --}}
 @section('content')
 
     <div class="mB-20">
-        <a href="{{ route(ADMIN . '.drivers.create') }}" class="btn btn-info">
+        <a href="{{ route(ADMIN . '.products.create') }}" class="btn btn-info">
        إضافة  جديد 
         </a>
-
-        <a href="{{ route('/drivers/active') }}" class="btn btn-success">
-            الكباتن النشطين 
-         </a>
     </div>
 
     {{-- {{ trans('app.add_button') }} --}}
@@ -21,20 +17,21 @@
         <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
                 <tr>
-                    <th>الإسم</th>
-                    <th>البريد الإلكتروني</th>
-                    <th> رقم الهاتف   </th>
-                    <th>    النشاط   </th>
+                    <th>اسم المنتج</th>
+                    <th> صاحب المنتج</th>
+                    <th>  التصنيف  </th>
+                    <th>  مطروح كإعلان  </th>
                     <th>التحكم</th>
                 </tr>
             </thead>
             
             <tfoot>
                 <tr>
-                    <th>الإسم</th>
-                    <th>البريد الإلكتروني</th>
-                    <th> رقم الهاتف   </th>
-                    <th>    النشاط   </th>
+                    <th>اسم المنتج</th>
+                    <th> صاحب المنتج</th>
+                    <th>  التصنيف  </th>
+                    <th>  مطروح كإعلان  </th>
+
                     <th>التحكم</th>
                 </tr>
             </tfoot>
@@ -42,25 +39,28 @@
             <tbody>
                 @foreach ($items as $item)
                     <tr>
-                        <td><a href="{{ route(ADMIN . '.drivers.show', $item->id) }}">{{ $item->User->name  }}</a></td>
-                        <td>{{ $item->User->email }}</td>
-                        <td>{{ $item->User->phone }}</td>
+                   
+                        <td>{{ $item->name }}</a></td>
+
+                        <td><a href="{{ route(ADMIN . '.clients.show', $item->Client->id) }}">{{ $item->Client->User->name}}</a></td>
+                        <td>{{ $item->Category->name}}</td>
                         <td>
-                            @if($item->is_available ==1)
-                              نشط   
-                           @elseif($item->is_available ==0)
-                            غير نشط
+                            @if($item->is_advetise ==true)
+                             اعلان   
+                           @elseif($item->is_advetise ==false)
+                            ليس اعلانا  
                            @endif
                            </td>
+
 
                         <td>
                             <ul class="list-inline">
                                 <li class="list-inline-item">
-                                    <a href="{{ route(ADMIN . '.drivers.edit', $item->id) }}" title="{{ trans('app.edit_title') }}" class="btn btn-primary btn-sm"><span class="ti-pencil"></span></a></li>
+                                    <a href="{{ route(ADMIN . '.products.edit', $item->id) }}" title="{{ trans('app.edit_title') }}" class="btn btn-primary btn-sm"><span class="ti-pencil"></span></a></li>
                                 <li class="list-inline-item">
                                     {!! Form::open([
                                         'class'=>'delete',
-                                        'url'  => route(ADMIN . '.drivers.destroy', $item->id), 
+                                        'url'  => route(ADMIN . '.products.destroy', $item->id), 
                                         'method' => 'DELETE',
                                         ]) 
                                     !!}
