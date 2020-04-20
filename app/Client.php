@@ -18,6 +18,10 @@ class Client extends Model
     {
          return $this->hasMany('App\Order');
     }
+    public function Product()
+    {
+         return $this->hasMany('App\Product');
+    }
 //     public function Pay()
 //     {
 //          return $this->hasMany('App\Pay');

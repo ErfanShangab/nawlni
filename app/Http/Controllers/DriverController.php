@@ -17,6 +17,7 @@ class DriverController extends Controller
         // $this->middleware(['role:super-admin','permission:publish articles|edit articles']);
         $this->middleware(['role:employee|super_admin']);
     }
+
     public function index()
     {
         $items = Driver::all();
@@ -25,11 +26,13 @@ class DriverController extends Controller
         return view('admin.drivers.index', compact('items'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function active()
+    {
+        $items = Driver::where('is_available','1')->get();
+        $items->load('User');
+
+        return view('admin.drivers.active', compact('items'));
+    }
     public function create()
     {
         return view('admin.drivers.create');

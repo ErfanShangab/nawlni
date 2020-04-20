@@ -32,22 +32,13 @@ class ClientController extends Controller
         return view('admin.clients.show', compact('item','items'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-  
+   
 
-
-    
 
     public function index()
     {
         $items = Client::all();
         $items->load('User');
-
         return view('admin.clients.index', compact('items'));
     }
 
