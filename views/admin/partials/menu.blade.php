@@ -72,16 +72,38 @@
 @endunlessrole
 
 @unlessrole('agent')
-
 <li class="nav-item  mT-20">
-    <a class="sidebar-link {{ Str::startsWith($route, ADMIN . '.pays') ? 'active' : '' }}" href="{{ route(ADMIN . '.pays.index') }}">
+    <a class="sidebar-link {{ Str::startsWith($route, ADMIN . '.products') ? 'active' : '' }}" href="{{ route(ADMIN . '.products.index') }}">
         <span class="icon-holder">
-            <i class="c-brown-500 ti-money"></i>
+            <i class="c-brown-500 ti-gift"></i>
         </span>
-        <span class="title">التقارير المالية</span>
+        <span class="title">المنتجات</span>
     </a>
 </li>
 @endunlessrole
+@unlessrole('agent')
+<li class="nav-item  mT-20">
+    <a class="sidebar-link {{ Str::startsWith($route, ADMIN . '.categories') ? 'active' : '' }}" href="{{ route(ADMIN . '.categories.index') }}">
+        <span class="icon-holder">
+            <i class="c-brown-500 ti-layout-grid4"></i>
+
+        </span>
+        <span class="title">التصنيفات</span>
+    </a>
+</li>
+@endunlessrole
+
+{{-- @unlessrole('agent')
+
+<li class="nav-item  mT-20">
+    <a class="sidebar-link {{ Str::startsWith($route, ADMIN . '.reports') ? 'active' : '' }}" href="{{ route(ADMIN . '.pays.index') }}">
+        <span class="icon-holder">
+            <i class="c-brown-500 ti-money"></i>
+        </span>
+        <span class="title">التقارير  </span>
+    </a>
+</li>
+@endunlessrole --}}
 
 @role('super_admin')
 
