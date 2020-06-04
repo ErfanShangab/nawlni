@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
@@ -47,8 +48,8 @@ class CustomerController extends Controller
     
         $user=User::create($request->all());
          
-        $user->Customer()->save(new Customer( ));
-        return back()->withSuccess(trans('app.success_store'));
+        $user->Customer()->save(new Customer());
+        return redirect()->route(ADMIN . '.customers.index')->withSuccess(trans('app.success_store'));
     }
 
     /**
@@ -60,8 +61,8 @@ class CustomerController extends Controller
     public function show($id)
     {
         $item = Customer::with('User')->findOrFail($id);
-        $items=Order::where('customer_id',$id)->get();
-        return view('admin.customers.show', compact('item','items'));
+        $items=Order::where('customer_id', $id)->get();
+        return view('admin.customers.show', compact('item', 'items'));
     }
 
     /**
@@ -86,8 +87,6 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-        
         $this->validate($request, User::rules(true, $id));
 
         $item = Customer::findOrFail($id);
@@ -108,6 +107,6 @@ class CustomerController extends Controller
     {
         Customer::destroy($id);
 
-        return back()->withSuccess(trans('app.success_destroy')); 
-    } 
+        return redirect()->route(ADMIN . '.customers.index')->withSuccess(trans('app.success_destroy'));
+    }
 }

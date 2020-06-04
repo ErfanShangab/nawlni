@@ -2,25 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
+use App\Client;
+use App\Customer;
+use App\Driver;
+use App\Order;
+use App\User;
 class DashboardController extends Controller
-{
-
-    public function __construct()
+{public function x()
     {
-        // $this->middleware(['role:super-admin','permission:publish articles|edit articles']);
-        $this->middleware(['role:employee|super_admin']);
-    }
+        $user=User::find(1);
+    $user->assignRole('super_admin');
+         
 
+    // return bcrypt('user@user.com');
+
+    
+    }
+    // public function __construct()
+    // {
+    //    $this->middleware(['role:employee|super_admin']);
+    // }
+
+    
     public function index()
     {
-
-        $orders = \App\Order::all()->count();
-        $clients=\App\Client::all()->count();
-        $drivers = \App\Driver::all()->count();
-        $customers = \App\Customer::all()->count();
-        return view('admin.dashboard.index',compact('orders','clients','drivers','customers'));
-       
+        $orders = Order::all()->count();
+        $clients = Client::all()->count();
+        $drivers = Driver::all()->count();
+        $customers = Customer::all()->count();
+        return view('admin.dashboard.index', compact('orders', 'clients', 'drivers', 'customers'));
     }
 }

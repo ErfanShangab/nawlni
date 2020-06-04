@@ -6,6 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Config extends Model
 {
-    protected $fillable = ['name', 'value'  ];
-
+    protected $fillable = ['name', 'value','trip_price'];
 }

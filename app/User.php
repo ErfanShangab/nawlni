@@ -5,17 +5,20 @@ namespace App;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 // use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+
 class User extends Authenticatable
 {
+    const ROLE = ['super_admin' => 0, 'employee' => 1, 'driver' => 2, 'agent' => 3, 'customer' => 4];
     // use Notifiable;
-use HasRoles;
+    use HasRoles;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','phone', 'avatar', 'bio', 'role',
+        'name', 'email', 'password', 'f_phone','s_phone',  'avatar', 'bio', 'role',
     ];
 
     /**
@@ -42,27 +45,26 @@ use HasRoles;
     | Validations
     |------------------------------------------------------------------------------------
     */
-   
+
     public function Customer()
     {
-         return $this->hasMany('App\Customer');
+        return $this->hasMany('App\Customer');
     }
 
     public function Driver()
     {
-         return $this->hasMany('App\Driver');
+        return $this->hasMany('App\Driver');
     }
 
     public function Client()
     {
-         return $this->hasMany('App\Client');
+        return $this->hasMany('App\Client');
     }
-
 
 
     public function Pay()
     {
-         return $this->hasMany('App\Pay');
+        return $this->hasMany('App\Pay');
     }
 
 
@@ -71,7 +73,6 @@ use HasRoles;
         $common = [
             'email' => "required|email|unique:users,email,$id",
             'password' => 'nullable|confirmed',
-
             'avatar' => 'image',
         ];
 
@@ -80,8 +81,8 @@ use HasRoles;
         }
 
         return array_merge($common, [
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:6',
+            'email' => 'required|email|max:255',
+            'password' => 'required|min:6',
         ]);
     }
 
@@ -90,10 +91,6 @@ use HasRoles;
     | Attributes
     |------------------------------------------------------------------------------------
     */
-    public function setPasswordAttribute($value = '')
-    {
-        $this->attributes['password'] = bcrypt($value);
-    }
 
     public function getAvatarAttribute($value)
     {
@@ -101,7 +98,7 @@ use HasRoles;
             return 'http://placehold.it/160x160';
         }
 
-        return config('variables.avatar.public').$value;
+        return config('variables.avatar.public') . $value;
     }
 
     public function setAvatarAttribute($photo)

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Client extends Model
 {
 
-     protected $fillable = ['balance', 'type' ,'details' ,'user_id'];
+     protected $fillable = ['balance', 'type' ,'details' ,'user_id' ,'nid','nid_details'];
 
     public function User()
     {
@@ -17,6 +17,10 @@ class Client extends Model
     public function Order()
     {
          return $this->hasMany('App\Order');
+    }
+    public function Product()
+    {
+         return $this->hasMany('App\Product');
     }
 //     public function Pay()
 //     {

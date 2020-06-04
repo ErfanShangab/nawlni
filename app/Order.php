@@ -19,4 +19,9 @@ class Order extends Model
     {
          return $this->belongsTo('App\Client');
     }
+
+    public function Employee()
+    {
+         return $this->belongsTo('App\Employee');
+    }
 }

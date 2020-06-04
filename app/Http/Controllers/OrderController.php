@@ -18,27 +18,34 @@ class OrderController extends Controller
     public function index()
     {
         $items = Order::all();
-        $items->load('Customer.User' , 'Client.User');
+        $items->load('Customer.User', 'Client.User');
 
         return view('admin.orders.index', compact('items'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
+    public function delivered()
+    {
+        $items = Order::where('status', 'deliverd')->get();
+        $items->load('Customer.User', 'Client.User');
+
+        return view('admin.orders.delivered', compact('items'));
+    }
+
+    public function inprogress()
+    {
+        $items = Order::where('status', 'inprogress')->get();
+        $items->load('Customer.User', 'Client.User');
+
+        return view('admin.orders.inprogress', compact('items'));
+    }
+
     public function create()
     {
         return view('admin.orders.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+     
     public function store(Request $request)
     {
         $this->validate($request, User::rules());
@@ -52,30 +59,20 @@ class OrderController extends Controller
         //     'user_id' =>   $user->id,
           
         // ]);
-        $user->Customer()->save(new Customer( ));
-        return back()->withSuccess(trans('app.success_store'));
+        $user->Customer()->save(new Customer());
+        return redirect()->route(ADMIN . '.orders.index')->withSuccess(trans('app.success_store'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+     
     public function show($id)
     {
         // $items->load('Customer.User' , 'Client.User');
 
-        $item = Order::with('Customer.User','Client.User')->findOrFail($id);
+        $item = Order::with('Customer.User', 'Client.User')->findOrFail($id);
         return view('admin.orders.show', compact('item'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+     
     public function edit($id)
     {
         $item = Order::findOrFail($id);
@@ -83,13 +80,7 @@ class OrderController extends Controller
         return view('admin.orders.edit', compact('item'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, $id)
     {
         $this->validate($request, User::rules(true, $id));
@@ -101,16 +92,11 @@ class OrderController extends Controller
         return redirect()->route(ADMIN . '.orders.index')->withSuccess(trans('app.success_update'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy($id)
     {
         Order::destroy($id);
 
-        return back()->withSuccess(trans('app.success_destroy')); 
-    } 
+        return redirect()->route(ADMIN . '.orders.index')->withSuccess(trans('app.success_destroy'));
+    }
 }

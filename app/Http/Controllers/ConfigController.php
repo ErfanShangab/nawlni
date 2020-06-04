@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
 use App\Config;
+
 class ConfigController extends Controller
 {
     public function __construct()
@@ -38,11 +39,9 @@ class ConfigController extends Controller
      */
     public function store(Request $request)
     {
-        
-      
         $config=Config::create($request->all());
       
-        return back()->withSuccess(trans('app.success_store'));
+        return redirect()->route('admin.configs.index')->withSuccess(trans('app.success_store'));
     }
 
     /**
@@ -79,10 +78,10 @@ class ConfigController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
         $item = Config::findOrFail($id);
         $item->name= $request->name;
         $item->value= $request->value;
+        $item->trip_price = $request->trip_price;
         $item->save();
 
     
@@ -99,6 +98,6 @@ class ConfigController extends Controller
     {
         Config::destroy($id);
 
-        return back()->withSuccess(trans('app.success_destroy')); 
-    } 
+        return back()->withSuccess(trans('app.success_destroy'));
+    }
 }
